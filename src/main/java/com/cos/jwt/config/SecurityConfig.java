@@ -1,5 +1,6 @@
 package com.cos.jwt.config;
 
+import com.cos.jwt.filter.Myfilter1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 
@@ -32,7 +34,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/user/**").hasAnyRole("USER", "MANAGER", "ADMIN")
                         .requestMatchers("/api/v1/manager/**").hasAnyRole("MANAGER", "ADMIN")
                         .requestMatchers("/api/v1/admin/**").hasAnyRole( "ADMIN")
-                        .anyRequest().permitAll());
+                        .anyRequest().permitAll())
+                .addFilterBefore(new Myfilter1(), BasicAuthenticationFilter.class) //
+        ;
 
         return http.build();
     }
