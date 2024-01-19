@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/manager/**").hasAnyRole("MANAGER", "ADMIN")
                         .requestMatchers("/api/v1/admin/**").hasAnyRole( "ADMIN")
                         .anyRequest().permitAll())
-                .addFilterBefore(new Myfilter1(), BasicAuthenticationFilter.class) //
+
         ;
 
         return http.build();
