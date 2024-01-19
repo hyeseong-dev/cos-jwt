@@ -1,6 +1,7 @@
 package com.cos.jwt.config;
 
 import com.cos.jwt.filter.Myfilter1;
+import com.cos.jwt.filter.Myfilter3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/manager/**").hasAnyRole("MANAGER", "ADMIN")
                         .requestMatchers("/api/v1/admin/**").hasAnyRole( "ADMIN")
                         .anyRequest().permitAll())
-
+                .addFilterBefore(new Myfilter3(), BasicAuthenticationFilter.class) //
         ;
 
         return http.build();
